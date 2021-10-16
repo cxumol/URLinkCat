@@ -9,7 +9,7 @@
 		const unsubscribe = data_store.subscribe(value => data = value);
   	onDestroy(unsubscribe);
 	}
-	
+	getDemoData()
 	const demoDataStr = JSON.parse(JSON.stringify(data));
 	import Lock from './Lock.svelte';
 	let unlocked = false;
