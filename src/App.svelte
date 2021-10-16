@@ -63,9 +63,10 @@
 	}
 
 	// db
+	const headers = {"origin":window.location.hostname};
 	
 	function data_validate(data, dataSizeLimit){
-		const compressed_data = JSON.stringify(text);
+		const compressed_data = JSON.stringify(data);
 		if (compressed_data.length > dataSizeLimit) {
 			alert("Error: Operation failue. Data size exceeds limit.")
 			return false
@@ -82,28 +83,36 @@
 		return result;
 	}
 	const thisurl = new URL(document.URL);
-	console.log(window.location.pathname);
-	const username = thisurl.hash.split("#")[1];
+
+	let username = thisurl.hash.split("#")[1];
+	console.log(window.location.hash, username);
+
 	if (!username){
+		username = randStr();
  		window.location.replace(window.location.pathname + '#' + randStr());
 	}
 
 	function getData(username){
-		fetch(`https://urlinkcat.t6.workers.dev/get/${username}`)
+		fetch(`https://urlinkcat.t6.workers.dev/get/${username}`, { headers:headers })
 			.then(response => {
 				if (!response.ok) {
-				throw new Error('use default data');
+				throw new Error(response);
 				}
 				return response.json();
 			})
 			.then(result => {
 				data = result;
+				console.log(data);
 			})
 			.catch(error => {
+				console.log(error)
 				getDemoData();
 			});
 	}
-	getData();
+	getData(username);
+	window.onhashchange = function() {
+    getData(window.location.hash.split("#")[1]);
+	}
 
 	function uploadData(uploadData){
 		if (!data_validate(data, dataSizeLimit)){
@@ -114,6 +123,7 @@
 		fetch(`https://urlinkcat.t6.workers.dev/set/${username}`, {
 				method: 'POST',
 				body: uploadData,
+				headers:headers
 				})
 			.then(response => {
 				if (!response.ok) {
@@ -135,7 +145,7 @@
 				return {"color":"lime","icon":"done"}
 				break;
 			case 'bad':
-				return {"color":"maroon","icon":"warning"}
+				return {"color":"maroon","icon":"dangerous"}
 				break;
 			default:
 				return {"color":"green","icon":"backup"}
