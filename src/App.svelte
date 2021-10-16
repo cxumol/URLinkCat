@@ -1,16 +1,19 @@
 <script>
 	let data;
 	let uploadingState;
+	let uploadingIconConfig = {"color":"green","icon":"backup"};
 	const dataSizeLimit = Number(12345);
+	const cf_workers = "urlinkcat.t6.workers.dev";
 	
 	import { data_store } from './data.js';
 	import { onDestroy } from 'svelte';
 	function getDemoData(){
-		const unsubscribe = data_store.subscribe(value => data = value);
-  	onDestroy(unsubscribe);
+		let unsubscribe = data_store.subscribe(value => data = value);
+  		onDestroy(unsubscribe);
 	}
-	getDemoData()
-	const demoDataStr = JSON.parse(JSON.stringify(data));
+	getDemoData(); // Don't remove
+	let savedData = JSON.stringify(data);
+
 	import Lock from './Lock.svelte';
 	let unlocked = false;
 	
@@ -63,16 +66,26 @@
 	}
 
 	// db
-	const headers = {"origin":window.location.hostname};
+	const myheaders = {
+		"Origin":window.location.origin,
+		"Content-Type": "text/plain"
+	};
 	
-	function data_validate(data, dataSizeLimit){
-		const compressed_data = JSON.stringify(data);
-		if (compressed_data.length > dataSizeLimit) {
-			alert("Error: Operation failue. Data size exceeds limit.")
+	function data_validate(myDataStr, dataSizeLimit){
+		if (myDataStr.length > dataSizeLimit) {
+			alert("Data size exceeds limit.")
 			return false
-		}else{
-			return true
 		}
+
+		if (myDataStr == savedData) {
+			alert("Nothing changed. No need to save.")
+			return false
+		}
+		// else{
+		// 	console.log{myDataStr == savedData, myDataStr , savedData}
+		// }
+
+		return true
 	}
 
 	const randStr = function(){
@@ -82,18 +95,15 @@
 		}
 		return result;
 	}
-	const thisurl = new URL(document.URL);
 
-	let username = thisurl.hash.split("#")[1];
-	console.log(window.location.hash, username);
-
+	let username = window.location.hash.split("#")[1];
 	if (!username){
 		username = randStr();
  		window.location.replace(window.location.pathname + '#' + randStr());
 	}
 
 	function getData(username){
-		fetch(`https://urlinkcat.t6.workers.dev/get/${username}`, { headers:headers })
+		fetch(`https://${cf_workers}/get/${username}`, { headers:myheaders })
 			.then(response => {
 				if (!response.ok) {
 				throw new Error(response);
@@ -102,28 +112,33 @@
 			})
 			.then(result => {
 				data = result;
-				console.log(data);
+				savedData = JSON.stringify(data);
 			})
 			.catch(error => {
 				console.log(error)
 				getDemoData();
+				savedData = JSON.stringify(data);
 			});
 	}
+
 	getData(username);
 	window.onhashchange = function() {
-    getData(window.location.hash.split("#")[1]);
+		username = window.location.hash.split("#")[1];
+		getData(username);
 	}
 
-	function uploadData(uploadData){
-		if (!data_validate(data, dataSizeLimit)){
+	function uploadData(myData){
+		let myDataStr = JSON.stringify(myData);
+		if (!data_validate(myDataStr, dataSizeLimit)){
 			uploadingState = 'bad';
-			alert('data too long');
+			changeIcon();
 			return false;
 		}
-		fetch(`https://urlinkcat.t6.workers.dev/set/${username}`, {
+		
+		fetch(`https://${cf_workers}/set/${username}`, {
+				headers: myheaders,
 				method: 'POST',
-				body: uploadData,
-				headers:headers
+				body: myDataStr,
 				})
 			.then(response => {
 				if (!response.ok) {
@@ -132,14 +147,17 @@
 			})
 			.then(() => {
 				uploadingState = 'ok';
+				changeIcon()
+				savedData = myDataStr;
 			})
 			.catch(error => {
 				uploadingState = 'bad';
+				changeIcon()
 				alert('unsuccessful data uploading');
 			});
 	}
 
-	function chooseIconState(uploadingState){
+	function chooseIcon(uploadingState){
 		switch (uploadingState) {
 			case 'ok':
 				return {"color":"lime","icon":"done"}
@@ -152,10 +170,17 @@
 				break;
 		}
 	}
+	function changeIcon(){
+		uploadingIconConfig = chooseIcon(uploadingState) 
+		setTimeout(()=>{
+			uploadingState = '';
+			changeIcon('');
+		},5000)
+	}
 	
 </script>
 
-<div style="--icon-color: {chooseIconState(uploadingState).color}">
+<div style="--icon-color: {uploadingIconConfig.color}">
 
 <!-- USER	VIEW MODE -->
 
@@ -190,7 +215,7 @@
 
 <button id="btn-upload" class="col-md-12 s-margin add-new" on:click={() => {uploadData(data)}}>
 	<div id="container-upload">
-		<span class="material-icons-outlined">{chooseIconState(uploadingState).icon}</span>
+		<span class="material-icons-outlined">{uploadingIconConfig.icon}</span>
 	</div>
 </button>
 
@@ -317,8 +342,9 @@ input:focus {
    color:    #909;
 }
 	input.color-edit{
-float:left;
+		float:left;
 		width:7%;
+		text-align:center;
 	}
 	input.text-edit{
 text-align:center;
