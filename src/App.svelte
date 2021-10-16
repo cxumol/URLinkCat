@@ -145,6 +145,8 @@
 	
 </script>
 
+<div style="--icon-color: {chooseIconState(uploadingState).color}">
+
 <!-- USER	VIEW MODE -->
 
 {#if !unlocked}
@@ -261,6 +263,8 @@
 
 <footer> <div class="footer">All contents and the related copyrights/responsibilities are belong to anonymous users, so that the website providers are unrelated to any legal affairs.</div> </footer>
 
+
+</div>
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons/css/material-icons.min.css"> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 <link rel="stylesheet" href="https://cdn.rawgit.com/alexanderGugel/papier/master/dist/papier.min.css">
@@ -326,7 +330,7 @@ text-align:center;
   bottom: 10px;
   right: 110px;
 	padding:0;
-	color: {chooseIconState(uploadingState).icon};
+	color: var(--icon-color);;
 	}
 	#container-upload{
 		display: flex;
