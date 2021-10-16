@@ -1,18 +1,20 @@
 <script>
 	let data;
+	let uploadingState;
 	const dataSizeLimit = Number(12345);
 	
 	import { data_store } from './data.js';
 	import { onDestroy } from 'svelte';
-	const unsubscribe = data_store.subscribe(value => {
-		data = value;
+	function getDemoData(){
+		const unsubscribe = data_store.subscribe(value => data = value);
 	});
-  onDestroy(unsubscribe);
+  	onDestroy(unsubscribe);
+	}
+	
 	const demoDataStr = JSON.parse(JSON.stringify(data));
 	import Lock from './Lock.svelte';
 	let unlocked = false;
 	
-
 	function delItem(sites, site_i){
 		sites[site_i].undo=true;
 		data = data;
@@ -60,6 +62,8 @@
 		cats[cat_i].undo=false;
 		data = data;
 	}
+
+	// db
 	
 	function data_validate(data, dataSizeLimit){
 		const compressed_data = JSON.stringify(text);
@@ -70,23 +74,77 @@
 			return true
 		}
 	}
+
 	const randStr = function(){
 		let result = Math.random().toString(36).slice(-8);
-		while (resutlt.length < 8) {
+		while (result.length < 8) {
 			result = Math.random().toString(36).slice(-8);
 		}
 		return result;
 	}
-	
 	const thisurl = new URL(document.URL);
 	console.log(window.location.pathname);
 	const username = thisurl.hash.split("#")[1];
 	if (!username){
-// 		window.location.replace(window.location.pathname + '#' + randStr());
+ 		window.location.replace(window.location.pathname + '#' + randStr());
 	}
+
+	function getData(username){
+		fetch(`https://urlinkcat.t6.workers.dev/get/${username}`)
+			.then(response => {
+				if (!response.ok) {
+				throw new Error('use default data');
+				}
+				return response.json();
+			})
+			.then(result => {
+				data = result;
+			})
+			.catch(error => {
+				getDemoData();
+			});
+	}
+	getData();
+
+	function uploadData(uploadData){
+		if (!data_validate(data, dataSizeLimit)){
+			uploadingState = 'bad';
+			alert('data too long');
+			return false;
+		}
+		fetch(`https://urlinkcat.t6.workers.dev/set/${username}`, {
+				method: 'POST',
+				body: uploadData,
+				})
+			.then(response => {
+				if (!response.ok) {
+				throw new Error('cannot upload data');
+				}
+			})
+			.then(() => {
+				uploadingState = 'ok';
+			})
+			.catch(error => {
+				uploadingState = 'bad';
+				alert('unsuccessful data uploading');
+			});
+	}
+
+	function chooseIconState(uploadingState){
+		switch (uploadingState) {
+			case 'ok':
+				return {"color":"lime","icon":"done"}
+				break;
+			case 'bad':
+				return {"color":"maroon","icon":"warning"}
+				break;
+			default:
+				return {"color":"green","icon":"backup"}
+				break;
+		}
+	}
+	
 </script>
-
-
 
 <!-- USER	VIEW MODE -->
 
@@ -119,9 +177,9 @@
 <hr/>
 {/each}
 
-<button id="btn-upload" class="col-md-12 s-margin add-new" on:click={() => {addCat(data.categories)}}>
+<button id="btn-upload" class="col-md-12 s-margin add-new" on:click={() => {uploadData(data)}}>
 	<div id="container-upload">
-		<span class="material-icons-outlined">backup</span>
+		<span class="material-icons-outlined">{chooseIconState(uploadingState).icon}</span>
 	</div>
 </button>
 
@@ -269,7 +327,7 @@ text-align:center;
   bottom: 10px;
   right: 110px;
 	padding:0;
-	color: green;
+	color: {chooseIconState(uploadingState).icon};
 	}
 	#container-upload{
 		display: flex;
