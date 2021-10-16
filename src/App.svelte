@@ -7,7 +7,6 @@
 	import { onDestroy } from 'svelte';
 	function getDemoData(){
 		const unsubscribe = data_store.subscribe(value => data = value);
-	});
   	onDestroy(unsubscribe);
 	}
 	
