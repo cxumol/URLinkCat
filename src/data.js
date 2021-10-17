@@ -33,7 +33,7 @@ export let data_store = writable(JSON.parse(`
             },
             {
                "icon":"cloud_sync",
-               "url":"#",
+               "url":"javascript:alert('click bottom-right cloud button to save your changes at this #pageid')",
                "name":"Don't Forget to Save to Cloud"
             }
          ]
