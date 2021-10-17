@@ -2,7 +2,7 @@
 
 Everyone's customizable bookmark home page. Dead simple to use. 
 
-> This project is intent to participate [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/), check [Technologies](#Technologies) section to find what  Cloudflare products are used.
+> This project is intent to participate [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/), check [Technology](#Technologies) section to find what  Cloudflare products are used.
 
 ## Apprance
 
@@ -17,7 +17,7 @@ Check out <https://urlinkcat.pages.dev/#demo>, and click a button to visit your 
 
 To satisfy your demand, you have to make your own page. Here is how you can do. 
 
-## Technologies
+## Technology
 
 In terms of website infrastructure, this project uses [Cloudflare Pages](https://pages.dev) to host statistic web files,  [Cloudflare Workers](https://workers.dev) to handle network requests and [Cloudflare Workers KV](https://workers.dev) as its database. 
 
