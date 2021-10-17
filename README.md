@@ -11,13 +11,15 @@ Everyone's customizable bookmark home page. Dead simple to use.
 |     ![]()      |      ![]()     |
 
 
-## Usage
+## User guide
 
 Check out <https://urlinkcat.pages.dev/#demo>, and click a button to visit your destination.  
 
 To satisfy your demand, you have to make your own page. Here is how you can do. 
 
-## Technology
+## Developer guide
+
+### Technology
 
 In terms of website infrastructure, this project uses [Cloudflare Pages](https://pages.dev) to host statistic web files,  [Cloudflare Workers](https://workers.dev) to handle network requests and [Cloudflare Workers KV](https://workers.dev) as its database. 
 
