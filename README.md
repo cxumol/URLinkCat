@@ -21,4 +21,4 @@ To satisfy your demand, you have to make your own page. Here is how you can do.
 
 In terms of website infrastructure, this project uses [Cloudflare Pages](https://pages.dev) to host statistic web files,  [Cloudflare Workers](https://workers.dev) to handle network requests and [Cloudflare Workers KV](https://workers.dev) as its database. 
 
-In terms of frontend tech stack, this project uses [Svelte](https://svelte.dev) as framework/compiler,  [Cloudflare Workers](https://workers.dev) to handle network requests and [Cloudflare Workers KV](https://workers.dev) as its database. 
+In terms of front-end tech stack, this project uses [Svelte](https://svelte.dev) as framework/compiler,  [Papier](http://gugel.io/papier/) as CSS library and [Material Design Icons](https://fonts.google.com/icons) as icon source. 
