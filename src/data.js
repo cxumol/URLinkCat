@@ -17,7 +17,7 @@ export let data_store = writable(JSON.parse(`
                "url":"https://github.com/cxumol/URLinkCat/blob/master/README.md"
             },
 	    {
-               "icon":"cloud_sync",
+               "icon":"theater_comedy",
                "url":"https://urlinkcat.pages.dev/#demo",
                "name":"Examples"
             },
