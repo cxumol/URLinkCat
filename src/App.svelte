@@ -141,8 +141,8 @@
 				body: myDataStr,
 				})
 			.then(response => {
-				if (!response.ok) {
-				throw new Error('cannot upload data');
+				if (!response.ok) { // https://gist.github.com/odewahn/5a5eeb23279eed6a80d7798fdb47fe91
+				throw response
 				}
 			})
 			.then(() => {
@@ -153,7 +153,7 @@
 			.catch(error => {
 				uploadingState = 'bad';
 				changeIcon()
-				alert('unsuccessful data uploading');
+				error.text().then((msg) => alert(`unsuccessful data uploading \nReason: ${msg}`));
 			});
 	}
 
@@ -179,6 +179,10 @@
 	}
 	
 </script>
+
+<svelte:head>
+	<title>{data.title.name}</title>
+</svelte:head>
 
 <div style="--icon-color: {uploadingIconConfig.color}">
 
