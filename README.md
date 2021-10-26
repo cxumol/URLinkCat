@@ -1,3 +1,5 @@
+**WIP project in private alpha. Not yet ready for use.** 
+
 # URL Link Catalog
 
 Everyone's customizable bookmark home page. Dead simple to use. 
@@ -13,7 +15,7 @@ Everyone's customizable bookmark home page. Dead simple to use.
 
 ## User guide
 
-Check out <https://urlinkcat.pages.dev/#demo>, and click a button to visit your destination.  
+<!-- Check out <https://urlinkcat.pages.dev/#demo>, and click a button to visit your destination.   -->
 
 To satisfy your demand, you have to make your own page. Here is how you can do. 
 
