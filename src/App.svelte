@@ -298,7 +298,7 @@
 
 <Lock bind:unlocked={unlocked}/>
 
-
+<div class="auth container">(optional) password: <input id="password" type="password" name="" value={data.password} on:input={() => if (['\\', '"'].some(el => data.password.contains(el))) alert('disallowed characters')} ></div>
 
 <footer> <div class="footer">All contents and the related copyrights/responsibilities are belong to anonymous users, so that the website providers are unrelated to any legal affairs.</div> </footer>
 
