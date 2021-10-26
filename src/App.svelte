@@ -4,6 +4,7 @@
 	let uploadingIconConfig = {"color":"green","icon":"backup"};
 	const dataSizeLimit = Number(12345);
 	const cf_workers = "urlinkcat.t6.workers.dev";
+	let needToken;
 	
 	import { data_store } from './data.js';
 	import { onDestroy } from 'svelte';
@@ -35,7 +36,7 @@
 			JSON.parse(`{
 				"icon":"link",
 				"url":"${document.URL}",
-				"name":"Your New Bookmark"
+				"name":"My New Bookmark"
 				}`)
 		);
 		data = data;
@@ -44,7 +45,7 @@
 	function addCat(categories){
 		categories.push(
 			JSON.parse(`{
-				"name":"Your New Category",
+				"name":"My New Category",
 				"color":"brown",
 				"sites":[]
 				}`)
@@ -105,6 +106,13 @@
 	function getData(username){
 		fetch(`https://${cf_workers}/get/${username}`, { headers:myheaders })
 			.then(response => {
+				// response.headers.forEach(console.log);
+				if (response.headers.get('x-need-token')){
+					needToken = true;
+					console.log('needToken');
+				}else{
+					needToken = false;
+				}
 				if (!response.ok) {
 				throw new Error(response);
 				}
@@ -121,7 +129,9 @@
 			});
 	}
 
+	// Init data
 	getData(username);
+	data.token='';
 	window.onhashchange = function() {
 		username = window.location.hash.split("#")[1];
 		getData(username);
@@ -176,6 +186,13 @@
 			uploadingState = '';
 			changeIcon('');
 		},5000)
+	}
+
+	// Password / Token related functions
+	function checkToken(){
+		data=data;
+		if (['\\', '"'].some(el => data.token.includes(el))) alert('disallowed characters')
+		// console.log(data.token)
 	}
 	
 </script>
@@ -299,6 +316,9 @@
 <Lock bind:unlocked={unlocked}/>
 
 
+{#if needToken}
+<div class="auth container">This page requires admin token to save data. Token: <input id="token" bind:value={data.token} on:input={checkToken} ></div>
+{/if}
 
 <footer> <div class="footer">All contents and the related copyrights/responsibilities are belong to anonymous users, so that the website providers are unrelated to any legal affairs.</div> </footer>
 
@@ -382,5 +402,9 @@ text-align:center;
 		text-align:center;
 		font-size:0.7em;
 	}
+
+.auth{
+	font-style: italic;
+}
 
 </style>
