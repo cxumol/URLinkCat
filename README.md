@@ -49,7 +49,7 @@ If you want to keep your bookmark "privately", just use a page id difficult to g
 
 ## Build your own instance 
 
-To satisfy your demand, you may consider to make your own page. Here is how you can do. 
+To satisfy your demand, you may consider to host your own instance. Here is how you can do. 
 
 Thanks to Cloudflare Pages, Workers & KV, the cost of launching this website is $0.
 
