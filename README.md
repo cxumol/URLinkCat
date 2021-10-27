@@ -13,7 +13,7 @@ Suppose you are working on multiple projects (such as students taking courses in
 
 Browser's bookmarks may help, but what if you have to work on different browsers/devices in different locations? Or, what if you want to share groups of certain links to someone very gently? 
 
-> This project is intent to participate [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/), check [Technology](#Technologies) section to find what Cloudflare products are used.
+> This project is intent to participate [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/), check [Technology](#Technology) section to find what Cloudflare products are used.
 
 
 ## Appearance
@@ -68,7 +68,7 @@ Build output directory: /public
 
 Till then, your website instance will be ready to use, but only within a browser tab session. If you need to store data for a longer time on the cloud, setup of a middleware and database is necessary.
 
-### Setup on Cloudflare Workers 
+### Setup on Cloudflare Workers and KV
 
 1. Create a new Cloudflare Workers instance on https://workers.dev/
 2. Create a [KV namespace](https://developers.cloudflare.com/workers/learning/how-kv-works) and bind it to this workers instance. Its name is URLinkCat.
