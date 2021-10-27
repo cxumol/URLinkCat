@@ -51,7 +51,7 @@ If you want to keep your bookmark "privately", just use a page id difficult to g
 
 To satisfy your demand, you may consider to make your own page. Here is how you can do. 
 
-> The official instance relies on Cloudflare Pages & Workers.
+Thanks to Cloudflare Pages, Workers & KV, the cost of launching this website is $0.
 
 ### Setup on Cloudflare Pages 
 
