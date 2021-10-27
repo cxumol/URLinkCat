@@ -33,7 +33,8 @@ Also subtitle bars can be colorful in your decision. Read detailed user guide be
 
 Check out our official examples listed on <https://urlinkcat.pages.dev/#demo>. No matter you are a website developer, student, scientist, warrior, wizard or bard ... , you can always enjoy it.
 
-1. Coming up with a unique page ID easy to remember. For example, if you decide your id is `JamesBond007`, go to `https://urlinkcat.pages.dev/#JamesBond007` on a web browser. (Directly visiting https://urlinkcat.pages.dev/ without specifing a page ID, it will generate a random ID)
+1. Coming up with a unique page ID easy to remember. For example, if you decide your id is `JamesBond007`, go to `https://urlinkcat.pages.dev/#JamesBond007` on a web browser. 
+> If you visit https://urlinkcat.pages.dev/ without specifing a page ID, it will generate a random ID
 2. Setup your links. Click the 🔒 lock button on the bottom-right corner to unlock the editing mode. Then, feel free to add, edit and delete any categories and their items as you want. Read the pictures below for more details.
 3. Click the 🔒 lock button again to save your works locally (within your browser session). Click the ☁️ cloud button to upload your masterpiece to the cloud (remote database). You will find a ✔️ green tick on the ☁️ cloud button if it's successfully saved.
 
