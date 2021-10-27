@@ -7,11 +7,11 @@ URL Link Catalog, or yoUR Link Cat, is the everyone's customizable bookmark home
 
 ## Purpose
 
-Why do we even need **a bookmark web page on the cloud**? 
+Why do we even need **an online bookmark page**? 
 
-Suppose you are working on multiple projects (link taking courses in a school in different disciplinary) in a day, and you have to open certain web pages for each different projects. Remembering all demanding destinations for each project can be a burden to your mind.   
+Suppose you are working on multiple projects (such as students taking courses in different disciplinary) in a day, and you have to open certain web pages for each different projects. Remembering all demanding destinations for each project can be a burden to your mind.   
 
-Browser's bookmark may help, but what if you have to work on different devices in different locations? Or, what if you want to share a certain link collections to someone? 
+Browser's bookmarks may help, but what if you have to work on different browsers/devices in different locations? Or, what if you want to share groups of certain links to someone very gently? 
 
 > This project is intent to participate [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/), check [Technology](#Technologies) section to find what Cloudflare products are used.
 
@@ -47,12 +47,37 @@ After the page being cloudy saved, you (or anyone online) can open `https://urli
 If you want to keep your bookmark "privately", just use a page id difficult to guess. For example, `SUxPVkVV`.
 
 
-## Build your own instance on Cloudflare Pages & Workers
+## Build your own instance 
 
-To satisfy your demand, you have to make your own page. Here is how you can do. 
+To satisfy your demand, you may consider to make your own page. Here is how you can do. 
 
-> more content coming soon ...
+> The official instance relies on Cloudflare Pages & Workers.
 
+### Setup on Cloudflare Pages 
+
+1. Fork this repo on GitHub
+2. You might change some config on "/src/App.svelte" and/or "/src/data.js"
+3. Follow Cloudflare Pages' document at https://developers.cloudflare.com/pages/get-started
+4. When it comes to "Build Configurations", set the config as below.
+
+```
+Framework preset: Svelte
+Build command: npm run build
+Build output directory: /public
+```
+
+Till then, your website instance will be ready to use, but only within a browser tab session. If you need to store data for a longer time on the cloud, setup of a middleware and database is necessary.
+
+### Setup on Cloudflare Workers 
+
+1. Create a new Cloudflare Workers instance on https://workers.dev/
+2. Create a [KV namespace](https://developers.cloudflare.com/workers/learning/how-kv-works) and bind it to this workers instance. Its name is URLinkCat.
+3. Copy & paste "/.cf_workers/main.js" to Cloudflare Workers' online editor. 
+4. Save and deploy on the online editor. (`wrangler` not required at all)
+
+Please double-check if the `cf_workers` const in "/src/App.svelte" matches the domain of your Cloudflare Workers' instance.
+
+You will be all set, if you have good luck.
 
 ## Developer guide
 
