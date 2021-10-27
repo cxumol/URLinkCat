@@ -40,6 +40,8 @@ Check out our official examples listed on <https://urlinkcat.pages.dev/#demo>. N
 
 ![userguide1](https://user-images.githubusercontent.com/8279655/138989025-813443b5-5d92-46a8-84c0-9601d4e802da.png)
 
+---
+
 ![userguide2](https://user-images.githubusercontent.com/8279655/138989036-0073b6f6-52f6-4dbc-ab6e-080e5529e54b.png)
 
 After the page being cloudy saved, you (or anyone online) can open `https://urlinkcat.pages.dev/#JamesBond007` to use your bookmarks. 
@@ -75,7 +77,7 @@ Till then, your website instance will be ready to use, but only within a browser
 3. Copy & paste "/.cf_workers/main.js" to Cloudflare Workers' online editor. 
 4. Save and deploy on the online editor. (`wrangler` not required at all)
 
-Please double-check if the `cf_workers` const in "/src/App.svelte" matches the domain of your Cloudflare Workers' instance.
+Please double-check if the const `cf_workers` in "/src/App.svelte" matches the domain of your Cloudflare Workers' instance.
 
 You will be all set, if you have good luck.
 
