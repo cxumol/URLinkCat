@@ -89,5 +89,25 @@ In terms of website infrastructure, this project uses [Cloudflare Pages](https:/
 
 In terms of front-end tech stack, this project uses [Svelte](https://svelte.dev) as framework/compiler,  [Papier](http://gugel.io/papier/) as CSS library and [Material Design Icons](https://fonts.google.com/icons) as icon source. 
 
+Application architecture is demonstrated below:
+
+```
+                ┌────────────x.pages.dev──┐
+                │                         │
+                │   ┌────────┐            │
+                │   │.svelte │            │
+                │   └─┬──────┘            │
+                │     │                   │
+                │     │ rollup            │
+                │     ▼                   │
+┌─────────┐     │   ┌───────────────┐     │   ┌───────────────┐    ┌──────────┐
+│  User   ├─────┼──►│.html/.css/.js │◄────┼──►│y.z.workers.dev│◄──►│workers KV│
+└─────────┘     │   └───────────────┘     │   └───────────────┘    └──────────┘
+                │                         │       middleware         database
+                └─────────────────────────┘
+                      frontend
+```
+
+
 > more content coming soon ...
 
