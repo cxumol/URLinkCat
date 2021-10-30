@@ -83,6 +83,8 @@ You will be all set, if you have good luck.
 
 ## Developer guide
 
+> This repository also joins in the [Hacktoberfest](https://hacktoberfest.digitalocean.com/) event by DigialOcean. Welcome pull requests from everyone in October. 
+
 ### Technology
 
 In terms of website infrastructure, this project uses [Cloudflare Pages](https://pages.dev) to host statistic web files,  [Cloudflare Workers](https://workers.dev) to handle network requests and [Cloudflare Workers KV](https://workers.dev) as its database. 
