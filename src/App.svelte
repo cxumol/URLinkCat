@@ -215,7 +215,7 @@
 	Demo website. No guarantee on reliability. 
 	Please consider <a href="https://github.com/cxumol/URLinkCat#build-your-own-instance">self-hosting</a> for your own security.
 </p>
-{/if isInstanceDemo}
+{/if}
 
 {#each data.categories as cat, cat_i}
 
