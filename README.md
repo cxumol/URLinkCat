@@ -9,7 +9,7 @@ URL Link Catalog, or yoUR Link Cat, is the everyone's customizable bookmark home
 
 Why do we even need **an online bookmark page**? 
 
-Suppose you are working on multiple projects (such as students taking courses in different disciplinary) in a day, and you have to open certain web pages for each different projects. Remembering all demanding destinations for each project can be a burden to your mind.   
+Suppose you are working on multiple projects/cases (such as students taking courses in different disciplinary) in a day, and you have to open certain web pages for each different projects. Remembering all demanding destinations for each project can be a burden to your mind.   
 
 Browser's bookmarks may help, but what if you have to work on different browsers/devices in different locations? Or, what if you want to share groups of certain links to someone very gently? 
 
