@@ -210,7 +210,8 @@
 <h1 class="bg-{data.title.color} center">{data.title.name}</h1>
 
 <p>
-	Demo website. No guarantee on reliability. Please consider self-hosting for your own security.
+	Demo website. No guarantee on reliability. 
+	Please consider <a href="https://github.com/cxumol/URLinkCat#build-your-own-instance">self-hosting</a> for your own security.
 </p>
 
 {#each data.categories as cat, cat_i}
