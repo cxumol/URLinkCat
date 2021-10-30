@@ -5,6 +5,7 @@
 	const dataSizeLimit = Number(12345);
 	const cf_workers = "urlinkcat.t6.workers.dev";
 	let needToken;
+	const isInstanceDemo = true;
 	
 	import { data_store } from './data.js';
 	import { onDestroy } from 'svelte';
@@ -209,10 +210,12 @@
 
 <h1 class="bg-{data.title.color} center">{data.title.name}</h1>
 
+{#if isInstanceDemo}
 <p>
 	Demo website. No guarantee on reliability. 
 	Please consider <a href="https://github.com/cxumol/URLinkCat#build-your-own-instance">self-hosting</a> for your own security.
 </p>
+{/if isInstanceDemo}
 
 {#each data.categories as cat, cat_i}
 
