@@ -196,6 +196,9 @@
 		// console.log(data.token)
 	}
 	
+	
+	// color-code auto correction, from "Light Blue" to "light-blue"
+	const fixColorCode = (val)=> val.toLowerCase().replace(' ', '-');
 </script>
 
 <svelte:head>
@@ -249,7 +252,7 @@
 {:else if unlocked}
 
 <h1 class="bg-{data.title.color} center">
-	<input class='color-edit' bind:value={data.title.color}>
+	<input class='color-edit' bind:value={data.title.color} on:input={data.title.color=fixColorCode(this.value)}>
 	<input class='text-edit' bind:value={data.title.name}>
 </h1>
 
@@ -257,7 +260,7 @@
 
 <div>
 <h2 class="bg-{cat.color} center">
-<input class='color-edit' bind:value={cat.color}>
+<input class='color-edit' bind:value={cat.color} on:input={cat.color=fixColorCode(this.value)}>
 	<input class='text-edit' bind:value={cat.name}>
 	{#if !cat.undo}
 	<button class="right s-padding m-margin del-icon bg-white" on:click={() => delCat(data.categories, cat_i)}>
