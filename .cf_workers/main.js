@@ -90,7 +90,7 @@ const corsHeaders = {
       }
       user_data_json = JSON.parse(user_data);
       // check token
-      if (preserved_pageid.includes(user_key)) {
+      if (preserved_pageid.some((el) => user_key.includes(el))) {
         if (user_data_json.token == adminToken){
           delete user_data_json.token
         }else{
