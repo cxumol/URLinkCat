@@ -14,7 +14,7 @@ Suppose you are working on multiple projects/cases (such as students taking cour
 Browser's bookmarks may help, but what if you have to work on different browsers/devices in different locations? Or, what if you want to share groups of certain links to someone very gently? 
 
 > This project is intent to participate [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/), check [Technology](#Technology) section to find what Cloudflare products are used.
-
+> Update: This project won Cloudflare Developer Summer Challenge and the developer recieved a gift box from Cloudflare. So feel free to add any other deployment platform if you feel like to contribute.
 
 ## Appearance
 
@@ -49,7 +49,7 @@ After the page being cloudy saved, you (or anyone online) can open `https://urli
 If you want to keep your bookmark "privately", just use a page id difficult to guess. For example, `SUxPVkVV`.
 
 
-## Build your own instance 
+## Host your own instance 
 
 To satisfy your demand, you may consider to host your own instance. Here is how you can do. 
 
@@ -108,6 +108,11 @@ Application architecture is demonstrated below:
                       frontend
 ```
 
+### Contribution
 
-> more content coming soon ...
+All PRs are welcome. Here are some suggestions for improvement:
+
+1. Depolyment on other playforms (vercel,  deno deploy, render.com, etc.)
+2. Open all links of a subgroup by a single click
+3. Change orders by drag-and-drop
 
