@@ -143,6 +143,7 @@
 						}
 					}
 				data = cloudData;
+				updatePageReadMe()
 				jsonedData = JSON.stringify(data);
 			})
 			.catch(error => {
@@ -242,7 +243,7 @@
 </p> -->
 {/if}
 
-<div>{@html pageReadme}</div>
+<div class="card depth-1">{@html pageReadme}</div>
 
 {#each data.categories as cat, cat_i}
 
