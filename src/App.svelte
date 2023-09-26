@@ -21,7 +21,7 @@
 
 	let pageReadme;
 	pageReadme = markdown.parse(data.readme.content, {
-    parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML,
+    parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML, // NO_HTML for safety reason (xss)
   });
 	
 
@@ -272,7 +272,7 @@
 </h1>
  <!-- Readme editor -->
 <button class="bg-white full-width">
-<textarea name="readme" id="readme-editor" class="full-width" bind:value={data.readme.content}></textarea>
+<textarea name="readme" id="readme-editor" class="full-width" rows="10" bind:value={data.readme.content}></textarea>
 </button>
 
 {#each data.categories as cat, cat_i}
