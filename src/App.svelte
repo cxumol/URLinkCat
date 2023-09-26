@@ -131,11 +131,12 @@
 			.then(result => {
 				// update cloud data structure implicitly
 				cloudData = result;
-				data.keys().forEach(k=>{
-					if(!cloudData.hasOwnProperty(k)){
+				for (const k of Object.keys(data)){
+					if(!cloudData.hasOwnProperty(k)) {
+						console.log(`data field updated implicitly, updated key:${k}`)
 						cloudData[k]=data[k];
+						}
 					}
-				})
 				data = cloudData;
 				jsonedData = JSON.stringify(data);
 			})
