@@ -6,7 +6,7 @@ const toggleLock = function() {
 }
 </script>
 
-<button id="btn-lock" on:click={toggleLock}>
+<button id="btn-lock" title="Unlock to make your own change; Lock to save changed content temporarily" on:click={toggleLock}>
   <div id="container-lock">
   <span class="lock {unlocked ? 'unlocked' : ''}"></span>
 		

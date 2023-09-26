@@ -16,6 +16,14 @@
 	getDemoData(); // Don't remove
 	let savedData = JSON.stringify(data);
 
+	export let markdown;
+
+	let pageReadme;
+	pageReadme = markdown.parse(data.readme.content, {
+    parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML,
+  });
+	
+
 	import Lock from './Lock.svelte';
 	let unlocked = false;
 	
@@ -75,7 +83,7 @@
 	
 	function data_validate(myDataStr, dataSizeLimit){
 		if (myDataStr.length > dataSizeLimit) {
-			alert("Data size exceeds limit.")
+			alert("You are trying to upload oversized data to the cloud! Please diminish your content in order to sync to cloud.")
 			return false
 		}
 
@@ -205,7 +213,7 @@
 	<title>{data.title.name}</title>
 </svelte:head>
 
-<div style="--icon-color: {uploadingIconConfig.color}">
+<div id="icon-color-css-overlay" style="--icon-color: {uploadingIconConfig.color}">
 
 <!-- USER	VIEW MODE -->
 
@@ -214,11 +222,13 @@
 <h1 class="bg-{data.title.color} center">{data.title.name}</h1>
 
 {#if isInstanceDemo}
-<p>
-	Demo website. No guarantee on reliability. 
+<!-- <p>
+	Demo website. 
 	Please consider <a href="https://github.com/cxumol/URLinkCat#build-your-own-instance">self-hosting</a> for your own security.
-</p>
+</p> -->
 {/if}
+
+<div>{@html pageReadme}</div>
 
 {#each data.categories as cat, cat_i}
 
@@ -241,7 +251,7 @@
 <hr/>
 {/each}
 
-<button id="btn-upload" class="col-md-12 s-margin add-new" on:click={() => {uploadData(data)}}>
+<button id="btn-upload" title="Save to cloud" class="col-md-12 s-margin add-new" on:click={() => {uploadData(data)}}>
 	<div id="container-upload">
 		<span class="material-icons-outlined">{uploadingIconConfig.icon}</span>
 	</div>
@@ -255,6 +265,10 @@
 	<input class='color-edit' bind:value={data.title.color} on:input={data.title.color=fixColorCode(this.value)}>
 	<input class='text-edit' bind:value={data.title.name}>
 </h1>
+
+<button class="bg-white full-width">
+<textarea name="readme" id="readme-editor" class="full-width" bind:value={data.readme.content}></textarea>
+</button>
 
 {#each data.categories as cat, cat_i}
 
@@ -327,7 +341,7 @@
 <div class="auth container">This page requires admin token to save data. Token: <input id="token" bind:value={data.token} on:input={checkToken} ></div>
 {/if}
 
-<footer> <div class="footer">All contents and the related copyrights/responsibilities are belong to anonymous users, so that the website providers are unrelated to any legal affairs.</div> </footer>
+<footer> <div class="footer">All contents and related copyrights/responsibilities belong to anonymous users. Therefore, the web application and/or website providers are not responsible for any legal affairs regarding the contents.</div> </footer>
 
 
 </div>

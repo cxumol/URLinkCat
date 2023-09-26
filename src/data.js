@@ -1,10 +1,14 @@
-import { writable } from 'svelte/store';	
+import { writable } from "svelte/store";
 
-export let data_store = writable(JSON.parse(` 
+export let data_store = writable(
+  JSON.parse(` 
 {
    "title":{
       "color":"indigo",
       "name":"URL Link Catalog"
+   },
+   "readme":{
+      "content":"## README - This is a default page\\nURLinkCat (URL Link Catalog) is a **free, open-source, fully customizable, multi-user, cloud-synced** bookmark web app. \\n\\nThis page is its default demo page. For detailed instructions on how to create your own bookmark collection page, please visit https://github.com/cxumol/URLinkCat. \\n\\nIf you find it interesting as a developer, please consider giving this project a star on GitHub."
    },
    "categories":[
       {
@@ -40,5 +44,5 @@ export let data_store = writable(JSON.parse(`
       }
    ]
 }
-`))
-
+`),
+);
