@@ -159,6 +159,7 @@
 	window.onhashchange = function() {
 		username = window.location.hash.split("#")[1];
 		getData(username);
+		updatePageReadMe();
 	}
 
 	function uploadData(myData){
