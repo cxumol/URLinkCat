@@ -272,7 +272,7 @@
 </h1>
  <!-- Readme editor -->
 <button class="bg-white full-width">
-<textarea name="readme" id="readme-editor" class="full-width" bind:value={data.readme.content || }></textarea>
+<textarea name="readme" id="readme-editor" class="full-width" bind:value={data.readme.content}></textarea>
 </button>
 
 {#each data.categories as cat, cat_i}
