@@ -9,13 +9,13 @@
 	
 	import { data_store } from './data.js';
 	import { onDestroy } from 'svelte';
-	function getDemoData(){
-		let unsubscribe = data_store.subscribe(value => data = value);
-  		onDestroy(unsubscribe);
-	}
-	getDemoData(); // Don't remove
-	let jsonedData;
-	// let jsonedData = JSON.stringify(data); // dupe, implemented when get kv db failure
+	let unsubscribe;
+	unsubscribe = data_store.subscribe(value => data = value);
+	/* function getDemoData(){}
+	// getDemoData(); // Don't remove */
+	onDestroy(unsubscribe);
+	// let jsonedData;
+	let jsonedData = JSON.stringify(data); // ~~dupe, implemented when get kv db failure~~
 
 	export let markdown;
 
@@ -130,7 +130,7 @@
 			})
 			.then(result => {
 				// update cloud data structure implicitly
-				cloudData = result;
+				let cloudData = result;
 				for (const k of Object.keys(data)){
 					if(!cloudData.hasOwnProperty(k)) {
 						console.log(`data field updated implicitly, updated key:${k}`)
@@ -142,7 +142,7 @@
 			})
 			.catch(error => {
 				console.log(error)
-				getDemoData();
+				// getDemoData();
 				jsonedData = JSON.stringify(data);
 			});
 	}
