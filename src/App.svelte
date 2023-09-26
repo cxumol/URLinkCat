@@ -132,9 +132,12 @@
 				// update cloud data structure implicitly
 				cloudData = result;
 				data.keys().forEach(k=>{
-					if (!cloudData.hasOwnProperty(k)) cloudData[k]=data[k]
+					if(!cloudData.hasOwnProperty(k)){
+						cloudData[k]=data[k];
+					}
 				})
-				jsonedData = JSON.stringify(cloudData);
+				data = cloudData;
+				jsonedData = JSON.stringify(data);
 			})
 			.catch(error => {
 				console.log(error)
