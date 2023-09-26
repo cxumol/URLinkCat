@@ -14,7 +14,8 @@
   		onDestroy(unsubscribe);
 	}
 	getDemoData(); // Don't remove
-	let savedData = JSON.stringify(data);
+	let jsonedData;
+	// let jsonedData = JSON.stringify(data); // dupe, implemented when get kv db failure
 
 	export let markdown;
 
@@ -87,18 +88,18 @@
 			return false
 		}
 
-		if (myDataStr == savedData) {
+		if (myDataStr == jsonedData) {
 			alert("Nothing changed. No need to save.")
 			return false
 		}
 		// else{
-		// 	console.log{myDataStr == savedData, myDataStr , savedData}
+		// 	console.log{myDataStr == jsonedData, myDataStr , jsonedData}
 		// }
 
 		return true
 	}
 
-	const randStr = function(){
+	const newRandomID = function(){
 		let result = Math.random().toString(36).slice(-8);
 		while (result.length < 8) {
 			result = Math.random().toString(36).slice(-8);
@@ -108,8 +109,8 @@
 
 	let username = window.location.hash.split("#")[1];
 	if (!username){
-		username = randStr();
- 		window.location.replace(window.location.pathname + '#' + randStr());
+		username = newRandomID();
+ 		window.location.replace(window.location.pathname + '#' + newRandomID());
 	}
 
 	function getData(username){
@@ -128,13 +129,17 @@
 				return response.json();
 			})
 			.then(result => {
-				data = result;
-				savedData = JSON.stringify(data);
+				// update cloud data structure implicitly
+				cloudData = result;
+				data.keys().forEach(k=>{
+					if (!cloudData.hasOwnProperty(k)) cloudData[k]=data[k]
+				})
+				jsonedData = JSON.stringify(cloudData);
 			})
 			.catch(error => {
 				console.log(error)
 				getDemoData();
-				savedData = JSON.stringify(data);
+				jsonedData = JSON.stringify(data);
 			});
 	}
 
@@ -167,7 +172,7 @@
 			.then(() => {
 				uploadingState = 'ok';
 				changeIcon()
-				savedData = myDataStr;
+				jsonedData = myDataStr;
 			})
 			.catch(error => {
 				uploadingState = 'bad';
@@ -265,9 +270,9 @@
 	<input class='color-edit' bind:value={data.title.color} on:input={data.title.color=fixColorCode(this.value)}>
 	<input class='text-edit' bind:value={data.title.name}>
 </h1>
-
+ <!-- Readme editor -->
 <button class="bg-white full-width">
-<textarea name="readme" id="readme-editor" class="full-width" bind:value={data.readme.content}></textarea>
+<textarea name="readme" id="readme-editor" class="full-width" bind:value={data.readme.content || }></textarea>
 </button>
 
 {#each data.categories as cat, cat_i}
