@@ -8,7 +8,7 @@ export let data_store = writable(
       "name":"URL Link Catalog"
    },
    "readme":{
-      "content":"## README - This is a default page\\nURLinkCat (URL Link Catalog) is a **free, open-source, fully customizable, multi-user, cloud-synced** bookmark web app. \\n\\I am a default README.md for any URLinkCat pages, so feel free to modify my content. For detailed instructions on how to create your own bookmark collection page, please visit https://github.com/cxumol/URLinkCat. \\n\\nIf you find it interesting as a developer, please consider giving this project a star on GitHub."
+      "content":"## README - This is a default page\\nURLinkCat (URL Link Catalog) is a **free, open-source, fully customizable, multi-user, cloud-synced** bookmark web app. \\n\\n I am a default README.md for any URLinkCat pages, so feel free to modify my content. For detailed instructions on how to create your own bookmark collection page, please visit https://github.com/cxumol/URLinkCat. \\n\\nIf you find it interesting as a developer, please consider giving this project a star on GitHub."
    },
    "categories":[
       {
