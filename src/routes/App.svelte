@@ -1,11 +1,15 @@
 <script>
-	let data;
+	export let data;
+	let dataSnapshot;
+	let pageReadme;
 	let uploadingState; // TODO
 	let uploadingIconConfig = { color: 'green', icon: 'backup' };
 	const dataSizeLimit = Number(12345);
 	const cf_workers = 'urlinkcat.t6.workers.dev';
 	let needToken;
 	const isInstanceDemo = true;
+
+	console.log("now data is", data);
 
 	// import utils
 	import {DB} from '$lib/db.js';
@@ -14,21 +18,30 @@
 	import * as markdown from '@logue/markdown-wasm';
 	import { onMount } from 'svelte';
 	onMount(async () => {
+		
+		// await initData();
 		await markdown.ready();
-		updatePageReadMe();
+		await initData();
+		
 	});
 
-	import { data_store } from './data.js';
-	import { onDestroy } from 'svelte';
-	let unsubscribe;
-	unsubscribe = data_store.subscribe((value) => (data = value));
-	/* function getDemoData(){}
-	// getDemoData(); // Don't remove */
-	onDestroy(unsubscribe);
-	// let jsonedData;
-	let jsonedData = JSON.stringify(data); // ~~dupe, implemented when get kv db failure~~
+	// init username
+	let username = window.location.hash.split('#')[1];
+	if (!username) {
+		username = newRandomID();
+		window.location.replace(window.location.pathname + '#' + newRandomID());
+	}
+	let db = new DB(cf_workers, username);
 
-	let pageReadme;
+	// Init data
+	async function initData(){
+		data = await db.getData(username); //.then((result) => data = result);
+		data.token = ''; // fron-end-only key
+		data = data;
+		dataSnapshot = JSON.stringify(data); 
+		updatePageReadMe();
+	}
+	
 	const updatePageReadMe = async () => {
 		data = data;
 		pageReadme = markdown.parse(data.readme.content, {
@@ -91,20 +104,20 @@
 
 	// data processing
 
-	function data_validate(myDataStr, dataSizeLimit) {
-		if (myDataStr.length > dataSizeLimit) {
+	function data_validate(currentDataStr, dataSizeLimit) {
+		if (currentDataStr.length > dataSizeLimit) {
 			alert(
 				'You are trying to upload oversized data to the cloud! Please diminish your content in order to sync to cloud.'
 			);
 			return false;
 		}
 
-		if (myDataStr == jsonedData) {
+		if (currentDataStr == dataSnapshot) {
 			alert('Nothing changed. No need to save.');
 			return false;
 		}
 		// else{
-		// 	console.log{myDataStr == jsonedData, myDataStr , jsonedData}
+		// 	console.log{currentDataStr == jsonedData, currentDataStr , jsonedData}
 		// }
 
 		return true;
@@ -118,18 +131,11 @@
 		return result;
 	};
 
-	let username = window.location.hash.split('#')[1];
-	if (!username) {
-		username = newRandomID();
-		window.location.replace(window.location.pathname + '#' + newRandomID());
-	}
+	
 
 
 
-	// Init data
-	let db = new DB(cf_workers, username);
-	db.getData(username).then((result) => data = result);
-	data.token = '';
+
 	window.onhashchange = function () {
 		username = window.location.hash.split('#')[1];
 		db = new DB(cf_workers, username);
@@ -137,12 +143,18 @@
 		updatePageReadMe();
 	};
 	function tryUploadData(){
-		if (!data_validate(myDataStr, dataSizeLimit)) {
-			uploadingState = 'bad';
-			changeIcon();
+		const currentDataStr = JSON.stringify(data);
+		if (!data_validate(currentDataStr, dataSizeLimit)) {
+			const uploadingState = 'bad';
+			changeIcon(uploadingState);
 			return false;
 		}
-		db.uploadData(data).then((result)=>changeIcon(result.uploadingState))
+		db.uploadData(currentDataStr).then(({uploadingState})=>{
+			changeIcon(uploadingState)
+			if (uploadingState=='ok'){
+				dataSnapshot = JSON.stringify(data); 
+			}
+		})
 	}
 
 	

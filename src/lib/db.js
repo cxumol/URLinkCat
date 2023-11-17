@@ -47,8 +47,7 @@ class DB {
         return cloudData;
     }
 
-    async uploadData(myData) {
-		const myDataStr = JSON.stringify(myData);
+    async uploadData(myDataStr) {
 
 		const response = await fetch(`https://${this.cf_workers}/set/${this.username}`, {
 			headers: myheaders,

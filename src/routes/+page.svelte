@@ -1,7 +1,6 @@
 <script>
 	import App from './App.svelte';
-	import { ready, parse } from '@logue/markdown-wasm'; // /dist/markdown.es.js
-	// import "@logue/markdown-wasm/dist/markdown.wasm";
+	export let data;
 </script>
 
 <svelte:head>
@@ -9,4 +8,4 @@
 	<meta name="description" content="remind me change it later" />
 </svelte:head>
 
-<App />
+<App data={data}/>
