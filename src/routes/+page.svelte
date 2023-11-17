@@ -8,4 +8,4 @@
 	<meta name="description" content="remind me change it later" />
 </svelte:head>
 
-<App data={data}/>
+<App {data} />

@@ -9,19 +9,16 @@
 	// let needToken;
 	const isInstanceDemo = true;
 
-
 	// import utils
-	import {DB} from '$lib/db.js';
+	import { DB } from '$lib/db.js';
 
 	// import markdown
 	import * as markdown from '@logue/markdown-wasm';
 	import { onMount } from 'svelte';
 	onMount(async () => {
-		
 		// await initData();
 		await markdown.ready();
 		await initData();
-		
 	});
 
 	// init username
@@ -33,14 +30,14 @@
 	let db = new DB(cf_workers, username);
 
 	// Init data
-	async function initData(){
+	async function initData() {
 		data = await db.getData(username); //.then((result) => data = result);
 		data.token = ''; // fron-end-only key
 		data = data;
-		dataSnapshot = JSON.stringify(data); 
+		dataSnapshot = JSON.stringify(data);
 		updatePageReadMe();
 	}
-	
+
 	const updatePageReadMe = async () => {
 		data = data;
 		pageReadme = markdown.parse(data.readme.content, {
@@ -133,22 +130,20 @@
 		data = await db.getData(username);
 		updatePageReadMe();
 	};
-	function tryUploadData(){
+	function tryUploadData() {
 		const currentDataStr = JSON.stringify(data);
 		if (!data_validate(currentDataStr, dataSizeLimit)) {
 			const uploadingState = 'bad';
 			changeIcon(uploadingState);
 			return false;
 		}
-		db.uploadData(currentDataStr).then(({uploadingState})=>{
-			changeIcon(uploadingState)
-			if (uploadingState=='ok'){
-				dataSnapshot = JSON.stringify(data); 
+		db.uploadData(currentDataStr).then(({ uploadingState }) => {
+			changeIcon(uploadingState);
+			if (uploadingState == 'ok') {
+				dataSnapshot = JSON.stringify(data);
 			}
-		})
+		});
 	}
-
-	
 
 	function chooseIcon(uploadingState) {
 		switch (uploadingState) {
