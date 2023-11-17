@@ -1,4 +1,15 @@
 /node_modules/
 /public/build/
+/static/build/
+
+/build
+/.svelte-kit
+/package
+/.codesandbox
+/.devcontainer
 
 .DS_Store
+.pnpm*log
+.env
+.env.*
+!.env.example

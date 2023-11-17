@@ -6,7 +6,15 @@
 	const cf_workers = "urlinkcat.t6.workers.dev";
 	let needToken;
 	const isInstanceDemo = true;
-	
+
+
+	import * as markdown from "@logue/markdown-wasm";
+	import { onMount } from "svelte";
+	onMount(async () => {
+		await markdown.ready();
+		updatePageReadMe();
+	});
+
 	import { data_store } from './data.js';
 	import { onDestroy } from 'svelte';
 	let unsubscribe;
@@ -16,19 +24,17 @@
 	onDestroy(unsubscribe);
 	// let jsonedData;
 	let jsonedData = JSON.stringify(data); // ~~dupe, implemented when get kv db failure~~
-
-	export let markdown;
+	
 
 	let pageReadme;
-	const updatePageReadMe = ()=>{
-		data=data;
-		pageReadme = markdown.parse(data.readme.content, {
-			parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML, // NO_HTML for safety reason (xss)
-		});
-	}
-	updatePageReadMe()
+	const updatePageReadMe = async ()=>{
+			data=data;
+			pageReadme = markdown.parse(data.readme.content, {
+				parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML, // NO_HTML for safety reason (xss)
+			});
+		}
 	
-	
+
 
 	import Lock from './Lock.svelte';
 	let unlocked = false;
