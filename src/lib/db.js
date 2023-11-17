@@ -48,7 +48,6 @@ class DB {
     }
 
     async uploadData(myDataStr) {
-
 		const response = await fetch(`https://${this.cf_workers}/set/${this.username}`, {
 			headers: myheaders,
 			method: 'POST',

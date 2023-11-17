@@ -6,7 +6,7 @@
 	let uploadingIconConfig = { color: 'green', icon: 'backup' };
 	const dataSizeLimit = Number(12345);
 	const cf_workers = 'urlinkcat.t6.workers.dev';
-	let needToken;
+	// let needToken;
 	const isInstanceDemo = true;
 
 
@@ -329,7 +329,7 @@
 
 	<Lock bind:unlocked />
 
-	{#if needToken}
+	{#if db.needToken}
 		<div class="auth container">
 			This page requires admin token to save data. Token: <input
 				id="token"
