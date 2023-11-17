@@ -37,7 +37,7 @@ You need it if you want to:
 
 Check out our official examples listed on <https://urlinkcat.pages.dev/#demo>. 
 
-1. Visit. Go to `https://urlinkcat.pages.dev/#SuperHero123` to view the page of `SuperHero123`.<sup>1,2</sup>
+1. Visit `https://urlinkcat.pages.dev/#ImSuperHero123` to view the page of `ImSuperHero123`.<sup>1,2</sup>
 2. Manage. No need accounts. Just click bottom-right 🔒 button to toggle editing mode.<sup>3</sup>
 3. Preview. Click 🔒 button again to toggle viewer mode.
 4. Save to Cloud. Click the ☁️ cloud button in viewer mode. If ☁️ shift to ✔️, congratulations, your masterpiece is in the could!
@@ -59,18 +59,18 @@ Tips:
 
 ### Front-end hosting on Cloudflare Pages
 
-1. Fork this repo on GitHub
-2. You might change some config on "/src/App.svelte" and/or "/src/data.js"
-3. Follow the Cloudflare Pages' document at https://developers.cloudflare.com/pages/get-started
-4. When it comes to "Build Configurations", set the config as below.
+1. [Fork me on GitHub](https://github.com/cxumol/URLinkCat/fork)
+2. Change the config at "src/routes/App.svelte" and/or "static/data_default.json"
+3. Follow the steps on [Cloudflare Pages document](https://developers.cloudflare.com/pages/get-started)
+4. Setup "Build Configurations" as below.
 
 ```
 Framework preset: Svelte
 Build command: pnpm run build
-Build output directory: /public
+Build output directory: /static
 ```
 
-> Now your instance is ready to use, but only within a browser tab session. If you want to enable cloud saving, keep following steps blow.
+Your instance is now ready to use, but only within a browser tab session. To enable cloud storage, keep following steps blow.
 
 ### Back-end hosting on Cloudflare Workers and KV
 
@@ -79,7 +79,7 @@ Build output directory: /public
 3. Copy & paste ".cf_workers/main.js" to [Cloudflare Workers Quick Edit](https://blog.cloudflare.com/improved-quick-edit/).
 4. Click "Save and deploy" on Quick Edit. (`wrangler` not required)
 
-Double check double-check if `cf_workers` in "/src/App.svelte" matches your back-end instance.
+Double-check if `cf_workers` value in "src/routes/App.svelte" matches your back-end address.
 
 Now you should find your instance up and running!
 
@@ -88,7 +88,7 @@ Now you should find your instance up and running!
 | Infrastructure | Purpose |
 |-|-|  
 | [Cloudflare Pages](https://pages.dev/) | Static web files |
-| [Cloudflare Workers](https://workers.dev/) |  Network requests handler |
+| [Cloudflare Workers](https://workers.dev/) |  Network requests handler, database connector |
 | [Cloudflare KV](https://developers.cloudflare.com/kv/) | NoSQL database |
 
 | Front-end | Purpose |
@@ -118,7 +118,7 @@ Architecture:
 
 ### Contribution
 
-All PRs are welcome. Here are some suggestions for improvement:
+Feel free to send PR. Here are some suggestions for improvement:
 
 1. Depolyment on other playforms (vercel, deno deploy, render.com, etc.)
 2. Open a group of links at once by a single click (firefox bookmark toolbar "Open All in Tabs")
