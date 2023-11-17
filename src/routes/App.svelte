@@ -9,7 +9,6 @@
 	let needToken;
 	const isInstanceDemo = true;
 
-	console.log("now data is", data);
 
 	// import utils
 	import {DB} from '$lib/db.js';
@@ -131,15 +130,10 @@
 		return result;
 	};
 
-	
-
-
-
-
-	window.onhashchange = function () {
+	window.onhashchange = async function () {
 		username = window.location.hash.split('#')[1];
 		db = new DB(cf_workers, username);
-		data = db.getData(username);
+		data = await db.getData(username);
 		updatePageReadMe();
 	};
 	function tryUploadData(){

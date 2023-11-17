@@ -33,6 +33,7 @@ class DB {
         const defaultData = getDefaultData();
         const response = await fetch(`https://${this.cf_workers}/get/${this.username}`, { headers: myheaders });
         if (!response.ok) {
+            console.debug(myheaders);
             // use default data
             return getDefaultData();
         }
