@@ -2,28 +2,17 @@
 	export let data;
 	let dataSnapshot;
 	let pageReadme;
-	let uploadingState; // TODO
 	let uploadingIconConfig = { color: 'green', icon: 'backup' };
 	const dataSizeLimit = Number(12345);
 	const cf_workers = 'urlinkcat.t6.workers.dev';
-	let needToken;
 	const isInstanceDemo = true;
 
-	console.log("now data is", data);
-
 	// import utils
-	import {DB} from '$lib/db.js';
+	import { DB } from '$lib/db.js';
+	import { newRandomID } from '$lib/utils.js';
 
-	// import markdown
+	// import external dependency
 	import * as markdown from '@logue/markdown-wasm';
-	import { onMount } from 'svelte';
-	onMount(async () => {
-		
-		// await initData();
-		await markdown.ready();
-		await initData();
-		
-	});
 
 	// init username
 	let username = window.location.hash.split('#')[1];
@@ -34,24 +23,34 @@
 	let db = new DB(cf_workers, username);
 
 	// Init data
-	async function initData(){
+	async function initData() {
 		data = await db.getData(username); //.then((result) => data = result);
 		data.token = ''; // fron-end-only key
-		data = data;
-		dataSnapshot = JSON.stringify(data); 
+		data = data; // TODO: refactor in Svelte 5
+		dataSnapshot = JSON.stringify(data);
 		updatePageReadMe();
 	}
-	
-	const updatePageReadMe = async () => {
+
+	async function updatePageReadMe() {
 		data = data;
 		pageReadme = markdown.parse(data.readme.content, {
 			parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML // NO_HTML for safety reason (xss)
 		});
-	};
+	}
 
+	// async init
+	import { onMount } from 'svelte';
+	onMount(async () => {
+		// await initData();
+		await markdown.ready();
+		await initData();
+	});
+
+	// init components
 	import Lock from './Lock.svelte';
 	let unlocked = false;
 
+	// page data updators
 	function delItem(sites, site_i) {
 		sites[site_i].undo = true;
 		data = data;
@@ -102,7 +101,13 @@
 		data = data;
 	}
 
-	// data processing
+	// page data handlers
+	window.onhashchange = async function () {
+		username = window.location.hash.split('#')[1];
+		db = new DB(cf_workers, username);
+		data = await db.getData(username);
+		updatePageReadMe();
+	};
 
 	function data_validate(currentDataStr, dataSizeLimit) {
 		if (currentDataStr.length > dataSizeLimit) {
@@ -116,49 +121,26 @@
 			alert('Nothing changed. No need to save.');
 			return false;
 		}
-		// else{
-		// 	console.log{currentDataStr == jsonedData, currentDataStr , jsonedData}
-		// }
 
 		return true;
 	}
 
-	const newRandomID = function () {
-		let result = Math.random().toString(36).slice(-8);
-		while (result.length < 8) {
-			result = Math.random().toString(36).slice(-8);
-		}
-		return result;
-	};
-
-	
-
-
-
-
-	window.onhashchange = function () {
-		username = window.location.hash.split('#')[1];
-		db = new DB(cf_workers, username);
-		data = db.getData(username);
-		updatePageReadMe();
-	};
-	function tryUploadData(){
+	function tryUploadData() {
 		const currentDataStr = JSON.stringify(data);
 		if (!data_validate(currentDataStr, dataSizeLimit)) {
 			const uploadingState = 'bad';
 			changeIcon(uploadingState);
 			return false;
 		}
-		db.uploadData(currentDataStr).then(({uploadingState})=>{
-			changeIcon(uploadingState)
-			if (uploadingState=='ok'){
-				dataSnapshot = JSON.stringify(data); 
+		db.uploadData(currentDataStr).then(({ uploadingState }) => {
+			changeIcon(uploadingState);
+			if (uploadingState == 'ok') {
+				dataSnapshot = JSON.stringify(data);
 			}
-		})
+		});
 	}
 
-	
-
+	// Icon as upload indicator
 	function chooseIcon(uploadingState) {
 		switch (uploadingState) {
 			case 'ok':
@@ -175,8 +157,8 @@
 	function changeIcon(uploadingState) {
 		uploadingIconConfig = chooseIcon(uploadingState);
 		setTimeout(() => {
-			uploadingState = '';
-			changeIcon('');
+			uploadingState = ''; //closure
+			changeIcon(uploadingState);
 		}, 5000);
 	}
 
@@ -184,7 +166,6 @@
 	function checkToken() {
 		data = data;
 		if (['\\', '"'].some((el) => data.token.includes(el))) alert('disallowed characters');
-		// console.log(data.token)
 	}
 
 	// color-code auto correction, from "Light Blue" to "light-blue"
@@ -339,9 +320,9 @@
 
 	<Lock bind:unlocked />
 
-	{#if needToken}
+	{#if db.needToken}
 		<div class="auth container">
-			This page requires admin token to save data. Token: <input
+			This page requires admin authentication to save data. Auth Token: <input
 				id="token"
 				bind:value={data.token}
 				on:input={checkToken}
