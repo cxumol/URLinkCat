@@ -102,7 +102,6 @@
 	}
 
 	// page data handlers
-
 	window.onhashchange = async function () {
 			username = window.location.hash.split('#')[1];
 			db = new DB(cf_workers, username);
@@ -323,7 +322,7 @@
 
 	{#if db.needToken}
 		<div class="auth container">
-			This page requires admin token to save data. Token: <input
+			This page requires admin authentication to save data. Auth Token: <input
 				id="token"
 				bind:value={data.token}
 				on:input={checkToken}
