@@ -36,7 +36,7 @@
 		pageReadme = markdown.parse(data.readme.content, {
 			parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML // NO_HTML for safety reason (xss)
 		});
-	};
+	}
 
 	// async init
 	import { onMount } from 'svelte';
@@ -103,11 +103,11 @@
 
 	// page data handlers
 	window.onhashchange = async function () {
-			username = window.location.hash.split('#')[1];
-			db = new DB(cf_workers, username);
-			data = await db.getData(username);
-			updatePageReadMe();
-		};
+		username = window.location.hash.split('#')[1];
+		db = new DB(cf_workers, username);
+		data = await db.getData(username);
+		updatePageReadMe();
+	};
 
 	function data_validate(currentDataStr, dataSizeLimit) {
 		if (currentDataStr.length > dataSizeLimit) {
