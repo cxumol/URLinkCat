@@ -4,56 +4,60 @@ https://urlinkcat.pages.dev/#demo
 
 URL Link Catalog, or URLinkCat, is a **free, open-source, fully customizable, multi-user, cloud-synced and easy-to-use** bookmark web app.
 
-## Purpose
+> 🏆 This project won [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/). Thank you Cloudflare for the prize box!
 
-Why do we even need **an online bookmark page**?
+## Who wants it?
 
-Suppose you are working on multiple projects/cases (such as students taking courses in different disciplines) in a day, and you have to open certain web pages for each different project. Remembering all the required destinations for each project can be a burden on your mind.
+You want online bookmark web app if you want to:
+- Acess personal bookmarks **across browsers and devices**
+- Acess bookmarks **across work and personal accounts**
+- **Share** links with a group of people
+- **Collaboratively** create a internet directory with firends
+- Publish your up-to-date collection of your favorite AIs since 2023!
 
-The browser's bookmarks may help, but what if you have to work on different browsers/devices in different physical locations or with separate work and personal accounts? Or, what if you want to easily share groups of certain links with a group of people?
+### Comparison 
 
-> This project was intended to participate [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/), check [Technology](#Technology) section to find what Cloudflare products are used.
+| Feature | URLinkCat | [Linktree](https://linktr.ee) |
+|-|-|-|  
+| Cost | ✓ Free | ✓ Free + Paid plans |
+| Cloud sync | ✓ | ✓ |
+| Cross-device access | ✓ | ✓ | 
+| Sharing links | ✓ | ✓ |
+| Thumbnails | ✓ Emoji / Material Design Icons | ✓ Image upload / Icons  |  
+| Manage links | ✓ One-click editing mode toggle | ✗ Complex admin backstage |  
+| Multi-pages | ✓ As many as you want | ✗ Create only 1 page per account |  
+| Collaboration | ✓ Anyone authorized can edit  | ✗ |
+| Authorization | ✓ No need accounts<sup>1</sup> | ✓ Requires accounts ✗ less convenient|
+| Open source | ✓ | ✗ | 
+| App size | ✓ Lightweight | ✗ Heavy | 
 
-> Update: This project won Cloudflare Developer Summer Challenge and the developer gratefully recieved a gift box from Cloudflare. So feel free to add any other deployment platform if you feel like contributing.
+1: Optional password protection coming soon™
 
-## Appearance
+## User Guide
 
-| daily use                                                                                                                | customize                                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| ![student-example](https://user-images.githubusercontent.com/8279655/138989286-f03b91ea-17fc-4854-9917-912f1b16b841.png) | ![student-example-editing](https://user-images.githubusercontent.com/8279655/138989493-6817babc-b0aa-489e-88ce-12594deb2c5f.png) |
+Check out our official examples listed on <https://urlinkcat.pages.dev/#demo>. 
 
-URL Link Catalog brings you a fresh look, which is different than most bookmark services you have seen before.
+1. Visit. All users are anonymous, no login required. Instead, if you want to use id `SuperHero001`, go to `https://urlinkcat.pages.dev/#SuperHero001`.<sup>1,2</sup>
+2. Manage. Click bottom-right 🔒 button to toggle editing mode.<sup>3</sup>
+3. Preview. Click 🔒 button again to toggle viewer mode.
+4. Save to Cloud. Click the ☁️ cloud button in viewer mode. If ☁️ shift to ✔️, congratulations, your masterpiece is in the could!
 
-Instead of a website's icon (favicon) used in most other bookmark services, you can fully customize the icon of each link button by using Google's Material Design Icons.
-
-Also, the subtitle bars can be colorful per your preference. Read the detailed user guide below for more information.
-
-## User guide
-
-Check out our official examples listed on <https://urlinkcat.pages.dev/#demo>. No matter whether you are a web developer, student, scientist, warrior, wizard or bard ... , you can always enjoy it.
-
-1. All users are anonymous, no login required. Instead, come up with a unique page ID easy to remember. For example, if you decide your id is `JamesBond007`, go to `https://urlinkcat.pages.dev/#JamesBond007` on a web browser;
-   > If you visit https://urlinkcat.pages.dev/ without specifying a page ID, it will generate a random ID for you;
-2. Setup your links. Click the 🔒 lock button on the bottom-right corner to unlock the editing mode. Then, feel free to add, edit and delete any categories and their items as you want. Read the pictures below for more details;
-3. Click the 🔒 lock button again to save your works locally (within your browser session). Click the ☁️ cloud button to upload your masterpiece to the cloud (remote database). You will find a ✔️ green tick on the ☁️ cloud button if it's successfully saved.
-
-![userguide1](https://user-images.githubusercontent.com/8279655/138989025-813443b5-5d92-46a8-84c0-9601d4e802da.png)
-
----
-
-![userguide2](https://user-images.githubusercontent.com/8279655/138989036-0073b6f6-52f6-4dbc-ab6e-080e5529e54b.png)
-
-After the page being cloudy saved, you (or anyone online) can open `https://urlinkcat.pages.dev/#JamesBond007` to use your bookmarks.
-
-If you want to keep your bookmark "privately", just use a page id difficult to guess. For example, `SUxPVkVV`.
+Tips:
+1. To keep bookmark "privately", use a page id hard to guess link `SUxPVkVV`. Search engine won't know unless you mention it in public.  
+2. Visiting https://urlinkcat.pages.dev/ barely will get a random ID.
+3. You will need codename to change thumbnails and colors, and the codenames can be found from the default "How to Use" section.
 
 ## Host your own instance
 
-> Here is how you can do it.
+| Infrastructure | Cost |
+|-|-|  
+| Cloudflare Pages | $0 |
+| Cloudflare Workers | $0 |
+| Cloudflare KV database | $0 |
+| Cloudflare subdomain | $0 |
+| Total | $0 |
 
-**Thanks to Cloudflare Pages, Workers & KV, the cost of launching this website is $0.**
-
-### Setup on Cloudflare Pages
+### Front-end hosting on Cloudflare Pages
 
 1. Fork this repo on GitHub
 2. You might change some config on "/src/App.svelte" and/or "/src/data.js"
@@ -66,28 +70,34 @@ Build command: pnpm run build
 Build output directory: /public
 ```
 
-At this point, your website instance will be ready to use, but only within a browser tab session. If you need to store data longer term in the cloud, setting up a middleware and database is necessary.
+> Now your instance is ready to use, but only within a browser tab session. If you want to enable cloud saving, keep following steps blow.
 
-### Setup on Cloudflare Workers and KV
+### Back-end hosting on Cloudflare Workers and KV
 
 1. Create a new Cloudflare Workers instance on https://workers.dev/
-2. Create a [KV namespace](https://developers.cloudflare.com/workers/learning/how-kv-works) and bind it to this workers instance. Its name is URLinkCat.
-3. Copy & paste "/.cf_workers/main.js" to Cloudflare Workers' online editor.
-4. Save and deploy on the online editor. (`wrangler` not required at all)
+2. Create a [KV namespace](https://developers.cloudflare.com/workers/learning/how-kv-works) and bind it to this workers instance. Default name is `URLinkCat`.
+3. Copy & paste ".cf_workers/main.js" to [Cloudflare Workers Quick Edit](https://blog.cloudflare.com/improved-quick-edit/).
+4. Click "Save and deploy" on Quick Edit. (`wrangler` not required)
 
-Please double-check if the const `cf_workers` in "/src/App.svelte" matches the domain of your Cloudflare Workers' instance.
+Double check double-check if `cf_workers` in "/src/App.svelte" matches your back-end instance.
 
-You will be all set, if you have good luck.
+Now you should find your instance up and running!
 
-## Developer guide
+## Developer notes
 
-### Technology
+| Infrastructure | Purpose |
+|-|-|  
+| [Cloudflare Pages](https://pages.dev/) | Static web files |
+| [Cloudflare Workers](https://workers.dev/) |  Network requests handler |
+| [Cloudflare KV](https://developers.cloudflare.com/kv/) | NoSQL database |
 
-In terms of website infrastructure, this project uses [Cloudflare Pages](https://pages.dev) to host statistic web files, [Cloudflare Workers](https://workers.dev) to handle network requests and [Cloudflare Workers KV](https://workers.dev) as its database.
+| Front-end | Purpose |
+|-|-|  
+| [Svelte](https://svelte.dev) | Framework / Compiler |
+| [Papier](http://gugel.io/papier/) | CSS library |
+| [Material Design Icons](https://fonts.google.com/icons) | Icon library |
 
-In terms of front-end tech stack, this project uses [Svelte](https://svelte.dev) as framework/compiler, [Papier](http://gugel.io/papier/) as CSS library and [Material Design Icons](https://fonts.google.com/icons) as icon source.
-
-Application architecture is demonstrated below:
+Architecture:
 
 ```
                 ┌────────────x.pages.dev──┐
@@ -96,10 +106,10 @@ Application architecture is demonstrated below:
                 │   │.svelte │            │
                 │   └─┬──────┘            │
                 │     │                   │
-                │     │ rollup            │
+                │     │ compile           │
                 │     ▼                   │
 ┌─────────┐     │   ┌───────────────┐     │   ┌───────────────┐    ┌──────────┐
-│  User   ├─────┼──►│.html/.css/.js │◄────┼──►│y.z.workers.dev│◄──►│workers KV│
+│  User   ├─────┼──►│.html/.css/.js │◄────┼──►│y.z.workers.dev│◄──►│Workers KV│
 └─────────┘     │   └───────────────┘     │   └───────────────┘    └──────────┘
                 │                         │       middleware         database
                 └─────────────────────────┘
