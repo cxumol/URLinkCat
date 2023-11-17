@@ -4,7 +4,7 @@ https://urlinkcat.pages.dev/#demo
 
 URL Link Catalog, or URLinkCat, is a **free, open-source, fully customizable, multi-user, cloud-synced and easy-to-use** bookmark web app.
 
-> 🏆 This project won [Cloudflare Developer Summer Challenge](https://challenge.developers.cloudflare.com/). Thank you Cloudflare for the prize box!
+> 🏆 This project won [Cloudflare Developer Summer Challenge 2021](https://challenge.developers.cloudflare.com/). Thank you Cloudflare for the prize box!
 
 ## Who wants it?
 
@@ -121,5 +121,5 @@ Architecture:
 All PRs are welcome. Here are some suggestions for improvement:
 
 1. Depolyment on other playforms (vercel, deno deploy, render.com, etc.)
-2. Open all links of a subgroup at once by a single click
+2. Open a group of links at once by a single click (firefox bookmark toolbar "Open All in Tabs")
 3. Change orders by drag-and-drop
