@@ -2,11 +2,9 @@
 	export let data;
 	let dataSnapshot;
 	let pageReadme;
-	let uploadingState; // TODO
 	let uploadingIconConfig = { color: 'green', icon: 'backup' };
 	const dataSizeLimit = Number(12345);
 	const cf_workers = 'urlinkcat.t6.workers.dev';
-	// let needToken;
 	const isInstanceDemo = true;
 
 	// import utils
@@ -161,8 +159,8 @@
 	function changeIcon(uploadingState) {
 		uploadingIconConfig = chooseIcon(uploadingState);
 		setTimeout(() => {
-			uploadingState = '';
-			changeIcon('');
+			const uploadingState = '';
+			changeIcon(uploadingState);
 		}, 5000);
 	}
 
