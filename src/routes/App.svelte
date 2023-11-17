@@ -115,9 +115,6 @@
 			alert('Nothing changed. No need to save.');
 			return false;
 		}
-		// else{
-		// 	console.log{currentDataStr == jsonedData, currentDataStr , jsonedData}
-		// }
 
 		return true;
 	}
@@ -178,7 +175,6 @@
 	function checkToken() {
 		data = data;
 		if (['\\', '"'].some((el) => data.token.includes(el))) alert('disallowed characters');
-		// console.log(data.token)
 	}
 
 	// color-code auto correction, from "Light Blue" to "light-blue"
