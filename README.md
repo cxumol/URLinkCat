@@ -8,7 +8,7 @@ URL Link Catalog, or URLinkCat, is a **free, open-source, fully customizable, mu
 
 ## Who wants it?
 
-You want online bookmark web app if you want to:
+You need it if you want to:
 - Acess personal bookmarks **across browsers and devices**
 - Acess bookmarks **across work and personal accounts**
 - **Share** links with a group of people
@@ -37,14 +37,14 @@ You want online bookmark web app if you want to:
 
 Check out our official examples listed on <https://urlinkcat.pages.dev/#demo>. 
 
-1. Visit. All users are anonymous, no login required. Instead, if you want to use id `SuperHero001`, go to `https://urlinkcat.pages.dev/#SuperHero001`.<sup>1,2</sup>
-2. Manage. Click bottom-right 🔒 button to toggle editing mode.<sup>3</sup>
+1. Visit. Go to `https://urlinkcat.pages.dev/#SuperHero123` to view the page of `SuperHero123`.<sup>1,2</sup>
+2. Manage. No need accounts. Just click bottom-right 🔒 button to toggle editing mode.<sup>3</sup>
 3. Preview. Click 🔒 button again to toggle viewer mode.
 4. Save to Cloud. Click the ☁️ cloud button in viewer mode. If ☁️ shift to ✔️, congratulations, your masterpiece is in the could!
 
 Tips:
-1. To keep bookmark "privately", use a page id hard to guess link `SUxPVkVV`. Search engine won't know unless you mention it in public.  
-2. Visiting https://urlinkcat.pages.dev/ barely will get a random ID.
+1. To make bookmark "private", use a page id hard to guess like `SUxPVkVV`. Search engines won't know unless you speak it out loud.  
+2. Visiting https://urlinkcat.pages.dev/ barely will give you a random ID.
 3. You will need codename to change thumbnails and colors, and the codenames can be found from the default "How to Use" section.
 
 ## Host your own instance
