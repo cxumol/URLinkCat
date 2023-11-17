@@ -1,7 +1,7 @@
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 
 export let data_store = writable(
-  JSON.parse(` 
+	JSON.parse(` 
 {
    "title":{
       "color":"indigo",
@@ -44,5 +44,5 @@ export let data_store = writable(
       }
    ]
 }
-`),
+`)
 );
