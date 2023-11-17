@@ -1,12 +1,16 @@
 <script>
 	let data;
-	let uploadingState;
+	let uploadingState; // TODO
 	let uploadingIconConfig = { color: 'green', icon: 'backup' };
 	const dataSizeLimit = Number(12345);
 	const cf_workers = 'urlinkcat.t6.workers.dev';
 	let needToken;
 	const isInstanceDemo = true;
 
+	// import utils
+	import {DB} from '$lib/db.js';
+
+	// import markdown
 	import * as markdown from '@logue/markdown-wasm';
 	import { onMount } from 'svelte';
 	onMount(async () => {
@@ -85,11 +89,7 @@
 		data = data;
 	}
 
-	// db
-	const myheaders = {
-		Origin: window.location.origin,
-		'Content-Type': 'text/plain'
-	};
+	// data processing
 
 	function data_validate(myDataStr, dataSizeLimit) {
 		if (myDataStr.length > dataSizeLimit) {
@@ -124,80 +124,28 @@
 		window.location.replace(window.location.pathname + '#' + newRandomID());
 	}
 
-	function getData(username) {
-		fetch(`https://${cf_workers}/get/${username}`, { headers: myheaders })
-			.then((response) => {
-				// response.headers.forEach(console.log);
-				if (response.headers.get('x-need-token')) {
-					needToken = true;
-					console.log('needToken');
-				} else {
-					needToken = false;
-				}
-				if (!response.ok) {
-					throw new Error(response);
-				}
-				return response.json();
-			})
-			.then((result) => {
-				// update cloud data structure implicitly
-				let cloudData = result;
-				for (const k of Object.keys(data)) {
-					if (!cloudData.hasOwnProperty(k)) {
-						console.log(`data field updated implicitly, updated key:${k}`);
-						cloudData[k] = data[k];
-					}
-				}
-				data = cloudData;
-				updatePageReadMe();
-				jsonedData = JSON.stringify(data);
-			})
-			.catch((error) => {
-				console.log(error);
-				// getDemoData();
-				jsonedData = JSON.stringify(data);
-			});
-	}
+
 
 	// Init data
-	getData(username);
+	let db = new DB(cf_workers, username);
+	db.getData(username).then((result) => data = result);
 	data.token = '';
 	window.onhashchange = function () {
 		username = window.location.hash.split('#')[1];
-		getData(username);
+		db = new DB(cf_workers, username);
+		data = db.getData(username);
 		updatePageReadMe();
 	};
-
-	function uploadData(myData) {
-		let myDataStr = JSON.stringify(myData);
+	function tryUploadData(){
 		if (!data_validate(myDataStr, dataSizeLimit)) {
 			uploadingState = 'bad';
 			changeIcon();
 			return false;
 		}
-
-		fetch(`https://${cf_workers}/set/${username}`, {
-			headers: myheaders,
-			method: 'POST',
-			body: myDataStr
-		})
-			.then((response) => {
-				if (!response.ok) {
-					// https://gist.github.com/odewahn/5a5eeb23279eed6a80d7798fdb47fe91
-					throw response;
-				}
-			})
-			.then(() => {
-				uploadingState = 'ok';
-				changeIcon();
-				jsonedData = myDataStr;
-			})
-			.catch((error) => {
-				uploadingState = 'bad';
-				changeIcon();
-				error.text().then((msg) => alert(`unsuccessful data uploading \nReason: ${msg}`));
-			});
+		db.uploadData(data).then((result)=>changeIcon(result.uploadingState))
 	}
+
+	
 
 	function chooseIcon(uploadingState) {
 		switch (uploadingState) {
@@ -212,7 +160,7 @@
 				break;
 		}
 	}
-	function changeIcon() {
+	function changeIcon(uploadingState) {
 		uploadingIconConfig = chooseIcon(uploadingState);
 		setTimeout(() => {
 			uploadingState = '';
@@ -274,7 +222,7 @@
 			title="Save to cloud"
 			class="col-md-12 s-margin add-new"
 			on:click={() => {
-				uploadData(data);
+				tryUploadData(data);
 			}}
 		>
 			<div id="container-upload">

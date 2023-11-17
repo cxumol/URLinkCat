@@ -1,0 +1,42 @@
+{
+   "title":{
+      "color":"indigo",
+      "name":"URL Link Catalog"
+   },
+   "readme":{
+      "content":"## README - This is a default page\\nURLinkCat (URL Link Catalog) is a **free, open-source, fully customizable, multi-user, cloud-synced** bookmark web app. \\n\\n I am a default README.md for any URLinkCat pages, so feel free to modify my content. For detailed instructions on how to create your own bookmark collection page, please visit https://github.com/cxumol/URLinkCat. \\n\\nIf you find it interesting as a developer, please consider giving this project a star on GitHub."
+   },
+   "categories":[
+      {
+         "name":"How to Use",
+         "color":"brown",
+         "sites":[
+            {
+               "name":"User Guide",
+               "icon":"info",
+               "url":"https://github.com/cxumol/URLinkCat/blob/master/README.md"
+            },
+	    {
+               "icon":"theater_comedy",
+               "url":"https://urlinkcat.pages.dev/#demo",
+               "name":"Examples"
+            },
+            {
+               "name":"Icons Available to Use",
+               "icon":"search",
+               "url":"https://fonts.google.com/icons?selected=Material+Icons&icon.query="
+            },
+            {
+               "icon":"palette",
+               "url":"https://github.com/alexanderGugel/papier/blob/master/src/config.styl",
+               "name":"Colors Available to Use"
+            },
+            {
+               "icon":"cloud_sync",
+               "url":"javascript:alert('click bottom-right cloud button to save your changes at this #pageid')",
+               "name":"Don't Forget to Save to Cloud"
+            }
+         ]
+      }
+   ]
+}
