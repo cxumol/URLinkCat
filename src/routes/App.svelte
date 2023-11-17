@@ -9,15 +9,10 @@
 
 	// import utils
 	import { DB } from '$lib/db.js';
+	import { newRandomID } from '$lib/utils.js';
 
-	// import markdown
+	// import external dependency
 	import * as markdown from '@logue/markdown-wasm';
-	import { onMount } from 'svelte';
-	onMount(async () => {
-		// await initData();
-		await markdown.ready();
-		await initData();
-	});
 
 	// init username
 	let username = window.location.hash.split('#')[1];
@@ -31,21 +26,31 @@
 	async function initData() {
 		data = await db.getData(username); //.then((result) => data = result);
 		data.token = ''; // fron-end-only key
-		data = data;
+		data = data; // TODO: refactor in Svelte 5
 		dataSnapshot = JSON.stringify(data);
 		updatePageReadMe();
 	}
 
-	const updatePageReadMe = async () => {
+	async function updatePageReadMe() {
 		data = data;
 		pageReadme = markdown.parse(data.readme.content, {
 			parseFlags: markdown.ParseFlags.DEFAULT | markdown.ParseFlags.NO_HTML // NO_HTML for safety reason (xss)
 		});
 	};
 
+	// async init
+	import { onMount } from 'svelte';
+	onMount(async () => {
+		// await initData();
+		await markdown.ready();
+		await initData();
+	});
+
+	// init components
 	import Lock from './Lock.svelte';
 	let unlocked = false;
 
+	// page data updators
 	function delItem(sites, site_i) {
 		sites[site_i].undo = true;
 		data = data;
@@ -96,7 +101,14 @@
 		data = data;
 	}
 
-	// data processing
+	// page data handlers
+
+	window.onhashchange = async function () {
+			username = window.location.hash.split('#')[1];
+			db = new DB(cf_workers, username);
+			data = await db.getData(username);
+			updatePageReadMe();
+		};
 
 	function data_validate(currentDataStr, dataSizeLimit) {
 		if (currentDataStr.length > dataSizeLimit) {
@@ -114,20 +126,6 @@
 		return true;
 	}
 
-	const newRandomID = function () {
-		let result = Math.random().toString(36).slice(-8);
-		while (result.length < 8) {
-			result = Math.random().toString(36).slice(-8);
-		}
-		return result;
-	};
-
-	window.onhashchange = async function () {
-		username = window.location.hash.split('#')[1];
-		db = new DB(cf_workers, username);
-		data = await db.getData(username);
-		updatePageReadMe();
-	};
 	function tryUploadData() {
 		const currentDataStr = JSON.stringify(data);
 		if (!data_validate(currentDataStr, dataSizeLimit)) {
@@ -143,6 +141,7 @@
 		});
 	}
 
+	// Icon as upload indicator
 	function chooseIcon(uploadingState) {
 		switch (uploadingState) {
 			case 'ok':
@@ -159,7 +158,7 @@
 	function changeIcon(uploadingState) {
 		uploadingIconConfig = chooseIcon(uploadingState);
 		setTimeout(() => {
-			const uploadingState = '';
+			uploadingState = ''; //closure
 			changeIcon(uploadingState);
 		}, 5000);
 	}
