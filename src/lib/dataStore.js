@@ -1,3 +1,5 @@
+// deprecated, but reserved in case
+
 import { writable } from 'svelte/store';
 
 export let data_store = writable(

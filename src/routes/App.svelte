@@ -49,22 +49,9 @@
 	// init components
 	import Lock from './Lock.svelte';
 	let unlocked = false;
+	import CardsEditable from './CardsEditable.svelte';
 
-	// page data updators
-	function delItem(sites, site_i) {
-		sites[site_i].undo = true;
-		data = data;
-		setTimeout(() => {
-			if (sites[site_i].undo) {
-				sites.splice(site_i, 1);
-				data = data;
-			}
-		}, 2500);
-	}
-	function delItem_undo(sites, site_i) {
-		sites[site_i].undo = false;
-		data = data;
-	}
+	// page data updators + CardsEditable.svelte
 	function addItem(sites) {
 		sites.push(
 			JSON.parse(`{
@@ -75,7 +62,6 @@
 		);
 		data = data;
 	}
-
 	function addCat(categories) {
 		categories.push(
 			JSON.parse(`{
@@ -260,43 +246,18 @@
 							class="right s-padding m-margin del-icon bg-white"
 							on:click={() => delCat(data.categories, cat_i)}
 						>
-							<span class="material-icons-outlined preview"> auto_delete </span>
+							<span class="material-icons-outlined edit-mode"> auto_delete </span>
 						</button>
 					{:else}
 						<button
 							class="right m-margin del-icon bg-white"
 							on:click={() => delCat_undo(data.categories, cat_i)}
 						>
-							<span class="material-icons-outlined preview"> undo </span>
+							<span class="material-icons-outlined edit-mode"> undo </span>
 						</button>
 					{/if}
 				</h2>
-				{#each cat.sites as site, site_i}
-					<button class="col-md-2 m-margin m-padding">
-						<span class="material-icons-outlined preview">
-							{site.icon}
-						</span>
-						{#if !site.undo}
-							<button
-								class="right inner-seamless outer-seamless del-icon bg-no"
-								on:click={() => delItem(cat.sites, site_i)}
-							>
-								<span class="material-icons-outlined preview"> auto_delete </span>
-							</button>
-						{:else}
-							<button
-								class="right inner-seamless outer-seamless del-icon bg-no"
-								on:click={() => delItem_undo(cat.sites, site_i)}
-							>
-								<span class="material-icons-outlined preview"> undo </span>
-							</button>
-						{/if}
-
-						<input class="text-edit inside" bind:value={site.icon} />
-						<input class="text-edit inside" bind:value={site.url} />
-						<input class="text-edit inside" bind:value={site.name} />
-					</button>
-				{/each}
+				<CardsEditable bind:cards={cat.sites} />
 				<button class="col-md-2 s-margin add-new" on:click={() => addItem(cat.sites)}>
 					<span class="material-icons-outlined"> add_circle_outline </span>
 					<p>Add new item</p>
@@ -350,9 +311,11 @@
 		font-size: 5em;
 		text-align: center;
 	}
-	.material-icons-outlined.preview {
+	
+	.material-icons-outlined.edit-mode {
 		font-size: 1em;
 	}
+
 	.del-icon {
 		float: right;
 		color: red;
@@ -388,13 +351,6 @@
 		float: left;
 		width: 7%;
 		text-align: center;
-	}
-	input.text-edit {
-		text-align: center;
-	}
-	input.text-edit.inside {
-		text-align: center;
-		width: 100%;
 	}
 
 	#btn-upload {

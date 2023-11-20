@@ -63,4 +63,4 @@ class DB {
 	}
 }
 
-export { DB };
+export { getDefaultData, DB };
