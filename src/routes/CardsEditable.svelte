@@ -37,17 +37,20 @@
 
 	function delItem(sites, site_i) {
 		sites[site_i].undo = true;
-		data = data;
+		// data = data;
+		cards = cards;
 		setTimeout(() => {
 			if (sites[site_i].undo) {
 				sites.splice(site_i, 1);
-				data = data;
+				// data = data;
+				cards = cards;
 			}
 		}, 2500);
 	}
 	function delItem_undo(sites, site_i) {
 		sites[site_i].undo = false;
-		data = data;
+		// data = data;
+		cards = cards;
 	}
 </script>
 
@@ -68,8 +71,15 @@
 			<div  
 				class="header bg-subtle l-padding center"
 				draggable="true"
-				on:dragstart={()=>draggingCard = card}
-				on:dragend={() => draggingCard = undefined}
+				on:dragstart={(event)=>{
+					// event.target.closest('.row').style.cursor = "move" ;
+					event.target.closest('.row').classList.add("dragging");
+					draggingCard = card;
+				}}
+				on:dragend={(event) => {
+					event.target.closest('.row').classList.remove("dragging");
+					draggingCard = undefined
+					}}
 				on:dragenter={() => swapWith(card)}
 				on:dragover|preventDefault>
 			<span class="material-icons-outlined edit-mode">
@@ -127,9 +137,14 @@
 		cursor:default;
 	}
 	.card .header{
-		cursor:grab;
+		cursor:move;
+		/* cursor:grab; */
 		font-weight: 700;
   		border-bottom: 1px solid #eee;
+	}
+	.dragging{
+		cursor:move;
+		/* cursor:grab; */
 	}
 
 	.material-icons-outlined.edit-mode {
