@@ -166,7 +166,7 @@
 	<!-- USER	VIEW MODE -->
 
 	{#if !unlocked}
-		<h1 class="bg-{data.title.color} center">{data.title.name}</h1>
+		<h1 class="bg-{data.title.color} center depth-2 ">{data.title.name}</h1>
 
 		{#if isInstanceDemo}
 			<!-- <p>
@@ -178,20 +178,24 @@
 		<div class="card depth-1">{@html pageReadme}</div>
 
 		{#each data.categories as cat, cat_i}
-			<div>
-				<h2 class="bg-{cat.color} center">{cat.name}</h2>
-				{#each cat.sites as site}
-					<button class="col-md-2 s-margin">
-						<a href={site.url}>
-							<span class="material-icons-outlined">
-								{site.icon}
-							</span>
-							<p>
-								{site.name}
-							</p>
-						</a>
-					</button>
-				{/each}
+			<div class="bg-subtle panel">
+				<div class="bg-{cat.color} cat-header">
+					<h2 class="center">{cat.name}</h2>
+				</div>
+				<div class="bg-subtle m-padding">
+					{#each cat.sites as site}
+						<button class="col-md-3 bg-white">
+							<a href={site.url}>
+								<span class="material-icons-outlined">
+									{site.icon}
+								</span>
+								<p>
+									{site.name}
+								</p>
+							</a>
+						</button>
+					{/each}
+				</div>
 			</div>
 			<hr />
 		{/each}
@@ -319,6 +323,10 @@
 	.del-icon {
 		float: right;
 		color: red;
+	}
+
+	.cat-header{
+		border-bottom: 1px solid #999;
 	}
 
 	button a p {
