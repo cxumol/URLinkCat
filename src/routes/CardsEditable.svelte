@@ -90,7 +90,7 @@
 					class="right inner-seamless outer-seamless del-icon bg-no"
 					on:click={() => delItem(cards, card_i)}
 				>
-					<span class="material-icons-outlined edit-mode"> auto_delete </span>
+					<span class="material-icons-outlined edit-mode"> delete </span>
 				</button>
 			{:else}
 				<button
