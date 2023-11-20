@@ -120,7 +120,7 @@ Architecture:
 
 Feel free to send PR. Consider following improvements:
 
-- [x] Change orders by drag-and-drop
+- [x] Change orders by dragging
 - [ ] Optional password protection
 - [ ] Depolyment on other playforms (vercel, deno deploy, render.com, etc.)
 - [ ] Open a group of links at once by a single click (firefox bookmark toolbar "Open All in Tabs")
