@@ -328,6 +328,9 @@
 	.cat-header{
 		border-bottom: 1px solid #999;
 	}
+	.panel{
+		margin: 0 .5em;
+	}
 
 	button a p {
 		font-weight: bold;
