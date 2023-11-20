@@ -250,7 +250,7 @@
 							class="right s-padding m-margin del-icon bg-white"
 							on:click={() => delCat(data.categories, cat_i)}
 						>
-							<span class="material-icons-outlined edit-mode"> auto_delete </span>
+							<span class="material-icons-outlined edit-mode"> delete </span>
 						</button>
 					{:else}
 						<button
