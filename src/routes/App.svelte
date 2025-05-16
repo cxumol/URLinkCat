@@ -2,10 +2,13 @@
 	export let data;
 	let dataSnapshot;
 	let pageReadme;
+
+	// CONFIG
 	let uploadingIconConfig = { color: 'green', icon: 'backup' };
 	const dataSizeLimit = Number(12345);
 	const cf_workers = 'urlinkcat.t6.workers.dev';
 	const isInstanceDemo = true;
+	const allowUserCSS = true;
 
 	// import utils
 	import { DB } from '$lib/db.js';
@@ -26,6 +29,7 @@
 	async function initData() {
 		data = await db.getData(username); //.then((result) => data = result);
 		data.token = ''; // fron-end-only key
+		if(allowUserCSS) data.CSS = data.CSS || '';
 		data = data; // TODO: refactor in Svelte 5
 		dataSnapshot = JSON.stringify(data);
 		updatePageReadMe();
@@ -160,6 +164,9 @@
 
 <svelte:head>
 	<title>{data.title.name}</title>
+	{#if allowUserCSS}
+		{@html `<`+`style>${data.CSS || ''}</style>`}
+	{/if}
 </svelte:head>
 
 <div id="icon-color-css-overlay" style="--icon-color: {uploadingIconConfig.color}">
@@ -223,6 +230,19 @@
 			/>
 			<input class="text-edit" bind:value={data.title.name} />
 		</h1>
+		<!-- User CSS editor -->
+	{#if allowUserCSS}
+		<button class="bg-white full-width">
+			<span>Custom Page Styles</span>
+			<textarea
+				name="userCSS"
+				id="user-css-editor"
+				class="full-width"
+				rows="3"
+				bind:value={data.CSS}
+			></textarea>
+		</button>
+	{/if}
 		<!-- Readme editor -->
 		<button class="bg-white full-width">
 			<textarea
