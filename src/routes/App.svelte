@@ -164,6 +164,8 @@
 
 <svelte:head>
 	<title>{data.title.name}</title>
+	
+	<link rel="stylesheet" href="https://cdn.rawgit.com/alexanderGugel/papier/master/dist/papier.min.css" />
 	{#if allowUserCSS}
 		{@html `<`+`style>${data.CSS || ''}</style>`}
 	{/if}
@@ -232,7 +234,7 @@
 		</h1>
 		<!-- User CSS editor -->
 	{#if allowUserCSS}
-		<button class="bg-white full-width">
+		<button class="bg-white full-width panel">
 			<span>Custom Page Styles</span>
 			<textarea
 				name="userCSS"
@@ -325,10 +327,6 @@
 </div>
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons/css/material-icons.min.css"> -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
-<link
-	rel="stylesheet"
-	href="https://cdn.rawgit.com/alexanderGugel/papier/master/dist/papier.min.css"
-/>
 
 <style>
 	.material-icons-outlined {
